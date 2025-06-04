@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoOps | Classified Gateway</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Roboto', 'Arial', 'Helvetica Neue', sans-serif;
+    }
+    body {
+      background-color: #161618;
+      background-image:
+        linear-gradient(90deg, transparent 50%, #414143 50.5%, transparent 51%),
+        linear-gradient(0deg, transparent 50%, #414143 50.5%, transparent 51%);
+      background-size: 100px 100px;
+      color: #FFFFFF;
+    }
+    header {
+      background-color: #111;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #222;
+      position: relative;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+    #menu-toggle {
+      display: none;
+    }
+    .menu-icon {
+      cursor: pointer;
+      width: 30px;
+      height: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-icon span {
+      display: block;
+      height: 4px;
+      background: #E21A41;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    nav {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: #111;
+      padding: 20px;
+      border: 1px solid #E21A41;
+      display: none;
+      flex-direction: column;
+    }
+    #menu-toggle:checked ~ nav {
+      display: flex;
+    }
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      margin-bottom: 10px;
+      font-weight: 300;
+      background: linear-gradient(90deg, #E21A41 50%, transparent 0) right bottom / 220% 100%;
+      transition: background-position 0.4s ease, color 0.2s;
+    }
+    nav a:hover {
+      background-position: 0 100%;
+      color: #FFFFFF;
+    }
+    .active {
+      display: flex !important;
+    }
+    .login-section, .signin-section {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 60px 10px;
+      min-height: 100vh;
+      background: #1a1a1d;
+    }
+    .form-container {
+      background-color: #111;
+      padding: 30px;
+      border: 1px solid #E21A41;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 0 20px rgba(226, 26, 65, 0.3);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      border-bottom: 2px solid #E21A41;
+      padding-bottom: 8px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      background: #222;
+      border: 1px solid #333;
+      color: #FFFFFF;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+    .form-btn {
+      width: 100%;
+      padding: 10px;
+      background: #E21A41;
+      border: none;
+      color: #FFFFFF;
+      font-size: 1rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+    .form-btn:hover {
+      background: #a51633;
+    }
+    .operations-section {
+      display: none;
+      padding: 60px 30px;
+      background-color: #101010;
+      border-top: 4px solid #E21A41;
+      border-bottom: 4px solid #E21A41;
+    }
+    .operations-section h2 {
+      font-size: 2rem;
+      color: #FFFFFF;
+      border-left: 5px solid #E21A41;
+      padding-left: 15px;
+      margin-bottom: 20px;
+    }
+    .operations-section ul {
+      padding-left: 20px;
+      list-style: square;
+      color: #ccc;
+    }
+    .message-board {
+      display: none;
+      padding: 60px 20px;
+      background-color: #0e0e0e;
+    }
+    .message-board h2 {
+      font-size: 2rem;
+      color: #FFFFFF;
+      border-bottom: 2px solid #E21A41;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .report-form {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 15px;
+      background: #111;
+      border: 1px solid #E21A41;
+      border-radius: 8px;
+    }
+    .report-form h3 {
+      font-size: 1.1rem;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #E21A41;
+      padding-bottom: 4px;
+      text-align: center;
+    }
+    .report-form label {
+      display: block;
+      color: #ccc;
+      margin-bottom: 4px;
+      font-size: 0.8rem;
+    }
+    .report-form textarea {
+      width: 100%;
+      min-height: 140px;
+      background: #222;
+      border: 1px solid #333;
+      color: #FFFFFF;
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      resize: vertical;
+    }
+    .report-form button {
+      background: #E21A41;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: block;
+      margin: 0 auto;
+    }
+    .report-form button:hover {
+      background: #a51633;
+    }
+    
+    html{
+      scroll-behavior: smooth;
+    }
+
+    html, body {
+	      height: 100%;
+    }
+
+    body {
+	      display: flex;
+	        flex-direction: column;
+    }
+
+    main {
+	      flex: 1;
+    }
+
+    footer {
+      background: #111;
+      color: #888;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+  </style>
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('menu-toggle').checked = false;
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">FORSEC</div>
+    <input type="checkbox" id="menu-toggle">
+    <label class="menu-icon" for="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav>
+      <a href="#" onclick="showSection('login')">Login</a>
+      <a href="#" onclick="showSection('signin')">Sign In</a>
+      <a href="#" onclick="showSection('operations')">Achivements</a>
+      <a href="intel.html">Bug Bounty</a>
+    </nav>
+  </header>
+
+  <section class="login-section" id="login">
+    <div class="form-container">
+      <h2>Login</h2>
+      <form>
+        <div class="form-group">
+          <label for="login-user">Username</label>
+          <input type="text" id="login-user" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <label for="login-pass">Password</label>
+          <input type="password" id="login-pass" placeholder="********">
+        </div>
+        <button class="form-btn" type="submit">Enter</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="signin-section" id="signin">
+    <div class="form-container">
+      <h2>Sign In</h2>
+      <form>
+        <div class="form-group">
+          <label for="sign-phone">Phone Number</label>
+          <input type="tel" id="sign-phone" placeholder="+1-555-0000">
+        </div>
+        <div class="form-group">
+          <label for="sign-email">Email ID</label>
+          <input type="email" id="sign-email" placeholder="echo@ops.gov">
+        </div>
+        <button class="form-btn" type="submit">Register</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="operations-section" id="operations">
+    <h2>Achivements</h2>
+    <ul>
+      <li><strong>Sector 7:</strong> Covert Recon & Surveillance – Operatives in stealth recon mode</li>
+      <li><strong>Zone X:</strong> Cyber Extraction – Active data siphoning mission</li>
+      <li><strong>Base Theta:</strong> Deep Cover – Psychological operations and civilian embed</li>
+    </ul>
+  </section>
+
+  <section class="message-board" id="messageboard">
+    <h2>Submit Intel Report</h2>
+    <form class="report-form">
+      <h3>Report Intelligence</h3>
+      <label for="intel">Details</label>
+      <textarea id="intel" placeholder="Example: Suspicious convoy spotted 2km NE of Base Theta..."></textarea>
+      <button type="submit">Transmit Report</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 FORSEC OSINT. Kerala, kottayam.
+  </footer>
+</body>
+</html>
+

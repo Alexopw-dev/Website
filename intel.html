@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forsec | Report Information</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background-color: #161618;
+      color: #FFFFFF;
+    }
+    header {
+      background-color: #111;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #222;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .message-board {
+      padding: 40px 20px;
+    }
+    .message-board h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 3px solid #E21A41;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+    }
+    .tab.active {
+      border-bottom: 4px solid #E21A41;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .report-form {
+      background: #111;
+      padding: 20px;
+      border: 1px solid #E21A41;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .report-form label {
+      font-size: 0.9rem;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    .report-form input,
+    .report-form textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #444;
+      background: #222;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+    .report-form .row {
+      display: flex;
+      gap: 10px;
+    }
+    .report-form .row input {
+      flex: 1;
+    }
+    .submission-ref {
+      background: #1e1e1e;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+    .submission-ref b {
+      color: #E21A41;
+    }
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .form-actions button {
+      border: none;
+      padding: 10px 25px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .btn-send {
+      background: #E21A41;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-clear {
+      background: none;
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('menu-toggle').checked = false;
+    }
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.getElementById(tabName + '-tab').classList.add('active');
+      document.getElementById(tabName).classList.add('active');
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      switchTab('form');
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">FORSEC</div>
+  </header>  <section class="message-board" id="messageboard">
+    <h2>Report Information</h2><div class="tabs">
+  <div class="tab" id="instructions-tab" onclick="switchTab('instructions')">INSTRUCTIONS</div>
+  <div class="tab" id="form-tab" onclick="switchTab('form')">ONLINE FORM</div>
+</div>
+
+<div class="tab-content" id="instructions">
+  <p style="text-align:center; color: #ccc;">Use this form to contact us or report information to our secure system. Do not include classified data unless encrypted.</p>
+</div>
+
+<div class="tab-content" id="form">
+  <form class="report-form">
+    <label for="message">Message <span style="float:right;font-size:0.8rem;color:#aaa;">Characters Remaining: 2500</span></label>
+    <textarea id="message" maxlength="2500" placeholder="Message text"></textarea>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="user@email.com">
+
+    <label for="name">Full Name (Optional)</label>
+    <input type="text" id="name" placeholder="First and last name">
+
+    <label>Phone Number (Optional)</label>
+    <div class="row">
+      <input type="text" placeholder="Country">
+      <input type="text" placeholder="Number">
+    </div>
+
+    <label>Mobile or Cell Number (Optional)</label>
+    <div class="row">
+      <input type="text" placeholder="Country">
+      <input type="text" placeholder="Number">
+    </div>
+
+    <div class="submission-ref">
+      Submission Reference<br>
+      ID: <b>625U6HNF</b>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-send">SEND ➝</button>
+      <button class="btn-clear" type="reset">Clear</button>
+    </div>
+  </form>
+</div>
+
+  </section>
+</body>
+</html>
